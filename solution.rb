@@ -1,25 +1,24 @@
 require 'sinatra'
 require 'make_todo'
 
-get '/' do
+
+get '/?' do
+  @title="Lista de Tareas"
+  @items = Tarea.all  
   erb :index
-end
+end 
 
-get '/completadas' do
-  erb :completadas
-end
-
-post '/nueva/tarea' do
-  Tarea.create(params[:titulo])
+post '/' do
+  n=Tarea.create(params[:content])
   redirect '/'
-end
+ end
 
-patch '/tarea/:id/actualizar' do
-  Tarea.update(params[:id])
-  redirect '/'
-end
+ patch '/' do
+ 	Tarea.update(params[:done])
+ 	redirect '/'
+ end
 
-delete '/tarea/:id/eliminar' do
-  Tarea.destroy(params[:id])
-  redirect '/'
-end
+delete '/' do
+	Tarea.destroy(params[:id])
+	redirect '/'
+end	
